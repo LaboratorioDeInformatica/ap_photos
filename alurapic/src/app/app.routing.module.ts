@@ -8,10 +8,13 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { resolve } from 'q';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 import { SigninComponent } from './home/signin/signin.component';
+import { AuthGuard } from './core/auth/auth.guard';
 
 const routes: Routes = [
     { path: '' ,
-     component: SigninComponent },
+     component: SigninComponent,
+    canActivate: [AuthGuard] },
+     
     { 
         path: 'user/:userName' , 
         component: PhotoListComponent, 
