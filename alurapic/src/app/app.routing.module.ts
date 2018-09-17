@@ -9,11 +9,18 @@ import { resolve } from 'q';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 import { SigninComponent } from './home/signin/signin.component';
 import { AuthGuard } from './core/auth/auth.guard';
+import { SignUpComponent } from './home/signup/signup.component';
 
 const routes: Routes = [
     { path: '' ,
      component: SigninComponent,
-    canActivate: [AuthGuard] },
+     canActivate: [AuthGuard]
+     },
+
+     { path: 'signup' ,
+     component: SignUpComponent,
+    
+     },
      
     { 
         path: 'user/:userName' , 
