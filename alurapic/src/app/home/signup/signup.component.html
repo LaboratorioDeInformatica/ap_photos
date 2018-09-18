@@ -41,9 +41,14 @@
             text="Full Name is maximum 30!">
          </ap-vmessage>
          <ap-vmessage 
-         *ngIf="signupForm.get('userName').errors?.pattern"
+         *ngIf="signupForm.get('userName').errors?.lowerCase"
          text="Must be lowercase!">
       </ap-vmessage>
+      <ap-vmessage 
+         *ngIf="signupForm.get('userName').errors?.userNameTaken"
+         text="User already exist!">
+      </ap-vmessage>
+      <small *ngIf="signupForm.get('userName').valid" class="text-success">User Avaliable</small>
     </div>
     <div class="form-group">
         <input formControlName="password" type="password" placeholder="password" class="form-control">
@@ -60,7 +65,7 @@
             text="Full Name is maximum 14!">
          </ap-vmessage>
     </div>
-    <button class="btn btn-primary btn-block">Register</button>
+    <button [disabled]="signupForm.invalid || signupForm.pending" class="btn btn-primary btn-block">Register</button>
 
     <p>Already a user?
         <a [routerLink]="['']"> Sign In!</a>
