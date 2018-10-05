@@ -11,19 +11,24 @@ import { LoginGuard } from '../core/auth/login.guard';
 
 const routes: Routes = [
 
-    { path: '' ,
-     component: HomeComponent,
-     canActivate: [LoginGuard],
-     children: [
-      
-        { path: '' ,
-        component: SigninComponent,
-        canActivate: [LoginGuard]
-        },
-   
-        { path: 'signup' ,
-        component: SignUpComponent,
-       
+    { 
+        path: '' ,
+        component: HomeComponent,
+        canActivate: [LoginGuard],
+        children: [
+            {
+                path: '' ,
+                component: SigninComponent,
+                data: {
+                    title: 'Sign in'
+                }
+            },
+             { 
+                path: 'signup' ,
+                component: SignUpComponent,
+                data: {
+                    title: 'Sign up'
+                }
         },
      ]
      },

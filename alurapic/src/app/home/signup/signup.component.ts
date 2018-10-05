@@ -6,6 +6,7 @@ import { NewUser } from './new-user';
 import { SignupService } from './signup.service';
 import { Router } from '@angular/router';
 import { PlatformDetectorService } from '../../core/plataform-detector/plataform-detector.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     templateUrl:'./signup.component.html',
@@ -21,7 +22,8 @@ export class SignUpComponent implements OnInit{
             private userNotTakenValidatorService: UserNotTakenValidatorService,
             private signUpService: SignupService,
             private route: Router,
-            private platFormDetectorService: PlatformDetectorService
+            private platFormDetectorService: PlatformDetectorService,
+            private titleService: Title
             ){
         
     }
