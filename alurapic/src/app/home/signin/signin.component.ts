@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { PlatformDetectorService } from '../../core/plataform-detector/plataform-detector.service';
 import { Title } from '@angular/platform-browser';
@@ -13,6 +13,7 @@ import { Title } from '@angular/platform-browser';
 export class SigninComponent implements OnInit{
     
     loginForm: FormGroup;
+    fromUrl: string;
     @ViewChild('userNameInput') userNameInput: ElementRef<HTMLInputElement>;
 
     constructor(
@@ -20,10 +21,14 @@ export class SigninComponent implements OnInit{
         private authService: AuthService ,
         private router:  Router ,
         private platformDetectorService: PlatformDetectorService,
-        private titleService: Title){
+        private titleService: Title,
+        private activatedRoute: ActivatedRoute){
     }
     
     ngOnInit(): void {
+        this.activatedRoute.queryParams.subscribe(params =>{
+            this.fromUrl = params.fromUrl
+        })
         this.titleService.setTitle('Login');
         this.loginForm = this.formBuilder.group({
             userName: ['', Validators.required],
@@ -39,7 +44,14 @@ export class SigninComponent implements OnInit{
         this.authService
         .autenticate(userName, password )
         .subscribe(
-            () =>  this.router.navigate(['user', userName]),
+            () =>  {
+            if(this.fromUrl){
+                this.router.navigateByUrl(this.fromUrl);
+            }else{
+                this.router.navigate(['user', userName]);
+            }
+                
+            },
             err => {
             console.log(err);
             this.loginForm.reset();
